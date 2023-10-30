@@ -3,10 +3,10 @@
 #include "../binary_trees.h"
 
 /**
- * main - Entry point
- *
+ * main - The entry point
  * Return: Always 0 (Success)
  */
+
 int main(void)
 {
     bst_t *root;
