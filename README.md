@@ -260,5 +260,5 @@ Function Prototypes
 
 ## Authors :black_nib:
 
-* __Hassnae Oumezdi__ <[hassnaeoum](https://github.com/hassnaeoum))>
+* __Hassnae Oumezdi__ <[hassnaeoum](https://github.com/hassnaeoum)>
 * __Khalifa Bako__ <[Khalifabako14](https://github.com/Khalifabako14)>
