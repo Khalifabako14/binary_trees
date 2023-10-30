@@ -4,9 +4,9 @@
 
 /**
  * main - Entry point
- *
  * Return: 0 on success, error code on failure
  */
+
 int main(void)
 {
     avl_t *root;
