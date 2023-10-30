@@ -3,20 +3,20 @@
 #include "../binary_trees.h"
 
 /**
- * print_num - Prints a number
- *
+ * print_num - A function that prints a number
  * @n: Number to be printed
  */
+
 void print_num(int n)
 {
     printf("%d\n", n);
 }
 
 /**
- * main - Entry point
- *
+ * main - The entry point
  * Return: Always 0 (Success)
  */
+
 int main(void)
 {
     binary_tree_t *root;
