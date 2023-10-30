@@ -3,10 +3,10 @@
 #include "../binary_trees.h"
 
 /**
- * main - Entry point
- *
+ * main - The entry point
  * Return: 0 on success, error code on failure
  */
+
 int main(void)
 {
     avl_t *tree;
