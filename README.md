@@ -1,3 +1,4 @@
+# Authors - Hassnae Oumezdi & Khalifa Bako 
 # C - Binary trees
 
 This was a partner project in which we learned about the details, advantages,
