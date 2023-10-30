@@ -3,11 +3,11 @@
 #include "../binary_trees.h"
 
 /**
- * print_array - Prints an array of integers
- *
+ * print_array - A function that prints an array of integers
  * @array: The array to be printed
  * @size: Size of the array
  */
+
 void print_array(const int *array, size_t size)
 {
     size_t i;
@@ -18,10 +18,10 @@ void print_array(const int *array, size_t size)
 }
 
 /**
- * main - Entry point
- *
+ * main - The entry point
  * Return: 0 on success, error code on failure
  */
+
 int main(void)
 {
     avl_t *tree;
