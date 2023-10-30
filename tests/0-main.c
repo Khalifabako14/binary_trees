@@ -2,10 +2,10 @@
 #include "../binary_trees.h"
 
 /**
- * main - Entry point
- *
+ * main - An entry point
  * Return: Always 0 (Success)
  */
+
 int main(void)
 {
     binary_tree_t *root;
