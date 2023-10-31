@@ -1,93 +1,47 @@
 #include "binary_trees.h"
 
-int binary_tree_is_heap(const binary_tree_t *tree);
-int check_parent(const binary_tree_t *tree);
-int binary_tree_is_complete(const binary_tree_t *tree);
-int tree_is_complete(const binary_tree_t *tree, int i, int cnodes);
-size_t binary_tree_size(const binary_tree_t *tree);
+avl_t *sorted_array_to_avl(int *array, size_t size);
+avl_t *aux_sort(avl_t *parent, int *array, int begin, int last);
 
 /**
- * binary_tree_is_heap - A function that checks
- * if a binary tree is a valid Max Binary Heap.
- * @tree: A pointer to the root node of the tree to check.
- * Return: 1 if tree is a valid Max Binary Heap, and 0 otherwise.
+ * sorted_array_to_avl - A functuoin that builds an AVL tree from an array.
+ * @array: A pointer to the first element of the array to be converted.
+ * @size: The number of element in the array
+ * Return: A pointer to the root node of the created AVL tree, NULL on failure.
  */
 
-int binary_tree_is_heap(const binary_tree_t *tree)
+avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-	if (!binary_tree_is_complete(tree))
-		return (0);
-
-	return (check_parent(tree->left) && check_parent(tree->right));
+	if (array == NULL || size == 0)
+		return (NULL);
+	return (aux_sort(NULL, array, 0, ((int)(size)) - 1));
 }
 
 /**
- * check_parent - A function that checks
- * if parent has a greater value than its childs.
- * @tree: A pointer to the node.
- * Return: 1 if parent has a greater value, 0 otherwise
+ * aux_sort - A function that creates the tree using the half element of the array.
+ * @parent: Parent of the node to create.
+ * @array: Sorted array.
+ * @begin: Position where the array starts.
+ * @last: Position where the array ends.
+ * Return: Tree created.
  */
 
-int check_parent(const binary_tree_t *tree)
+avl_t *aux_sort(avl_t *parent, int *array, int begin, int last)
 {
-	if (tree == NULL)
-		return (1);
+	avl_t *root;
+	binary_tree_t *aux;
+	int mid = 0;
 
-	if (tree->n > tree->parent->n)
-		return (0);
-
-	return (check_parent(tree->left) && check_parent(tree->right));
-}
-
-/**
- * binary_tree_is_complete - A function that calls to tree_is_complete function.
- * @tree: Tree root.
- * Return: 1 if tree is complete, 0 otherwise
- */
-
-int binary_tree_is_complete(const binary_tree_t *tree)
-{
-	size_t cnodes;
-
-	if (tree == NULL)
-		return (0);
-
-	cnodes = binary_tree_size(tree);
-
-	return (tree_is_complete(tree, 0, cnodes));
-}
-
-/**
- * tree_is_complete - A function that checks if tree is complete.
- * @tree: Pointer to the tree root.
- * @i: Node index.
- * @cnodes: Number of nodes.
- * Return: 1 if tree is complete, 0 otherwise
- */
-
-int tree_is_complete(const binary_tree_t *tree, int i, int cnodes)
-{
-	if (tree == NULL)
-		return (1);
-
-	if (i >= cnodes)
-		return (0);
-
-	return (tree_is_complete(tree->left, (2 * i) + 1, cnodes) &&
-		tree_is_complete(tree->right, (2 * i) + 2, cnodes));
-}
-
-
-/**
- * binary_tree_size - A function that measures the size of a binary tree.
- * @tree: Tree root.
- * Return: Size of the tree or 0 if tree is NULL.
- */
-
-size_t binary_tree_size(const binary_tree_t *tree)
-{
-	if (tree == NULL)
-		return (0);
-
-	return (binary_tree_size(tree->left) + binary_tree_size(tree->right) + 1);
+	if (begin <= last)
+	{
+		mid = (begin + last) / 2;
+		aux = binary_tree_node((binary_tree_t *)parent, array[mid]);
+		if (aux == NULL)
+			return (NULL);
+		root = (avl_t *)aux;
+		root->left = aux_sort(root, array, begin, mid - 1);
+		root->right = aux_sort(root, array, mid + 1, last);
+		return (root);
+	}
+	return (NULL);
 }
