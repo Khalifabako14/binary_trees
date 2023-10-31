@@ -1,47 +1,49 @@
 #include "binary_trees.h"
-
-avl_t *sorted_array_to_avl(int *array, size_t size);
-avl_t *aux_sort(avl_t *parent, int *array, int begin, int last);
+#include "102-binary_tree_is_complete.c"
 
 /**
- * sorted_array_to_avl - A functuoin that builds an AVL tree from an array.
- * @array: A pointer to the first element of the array to be converted.
- * @size: The number of element in the array
- * Return: A pointer to the root node of the created AVL tree, NULL on failure.
- */
+ * check_max - goes through a binary tree cheking ropt as max value
+ * @tree: pointer to the root
+ * Return: 1 if all nodes are max, 0 in other cases
+ **/
 
-avl_t *sorted_array_to_avl(int *array, size_t size)
+int check_max(const binary_tree_t *tree)
 {
-	if (array == NULL || size == 0)
-		return (NULL);
-	return (aux_sort(NULL, array, 0, ((int)(size)) - 1));
-}
+	int tmp1 = 1, tmp2 = 1;
 
-/**
- * aux_sort - A function that creates the tree using the half element of the array.
- * @parent: Parent of the node to create.
- * @array: Sorted array.
- * @begin: Position where the array starts.
- * @last: Position where the array ends.
- * Return: Tree created.
- */
-
-avl_t *aux_sort(avl_t *parent, int *array, int begin, int last)
-{
-	avl_t *root;
-	binary_tree_t *aux;
-	int mid = 0;
-
-	if (begin <= last)
+	if (!tree)
+		return (0);
+	if (!tree->left && !tree->right)
+		return (1);
+	if (tree->left)
 	{
-		mid = (begin + last) / 2;
-		aux = binary_tree_node((binary_tree_t *)parent, array[mid]);
-		if (aux == NULL)
-			return (NULL);
-		root = (avl_t *)aux;
-		root->left = aux_sort(root, array, begin, mid - 1);
-		root->right = aux_sort(root, array, mid + 1, last);
-		return (root);
+		if (tree->n <= tree->left->n)
+			return (0);
+		tmp1 = check_max(tree->left);
 	}
-	return (NULL);
+	if (tree->right)
+	{
+		if (tree->n <= tree->right->n)
+			return (0);
+		tmp2 = check_max(tree->right);
+	}
+	return (tmp1 && tmp2);
+}
+/**
+ * binary_tree_is_heap - A function that checks if a binary tree is heap
+ * @tree: pointer to the node
+ * Return: 1 in case BTS /  0 otherwise
+ **/
+
+int binary_tree_is_heap(const binary_tree_t *tree)
+{
+	int tmp;
+
+	if (!tree)
+		return (0);
+
+	tmp = binary_tree_is_complete(tree);
+	if (!tmp)
+		return (0);
+	return (check_max(tree));
 }
